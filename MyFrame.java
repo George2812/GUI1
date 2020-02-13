@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -8,23 +9,39 @@ import javax.swing.JTextField;
 
 public class MyFrame extends JFrame {
 
-	private JTextField inputField,outputField;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField studentNameField,courseNameField;
 	private JButton button,button2;
 	private JPanel panel;
+	private ArrayList<Course> courses=new ArrayList<Course>();
+	private ArrayList<Student> students=new ArrayList<Student>();
+	
 	
 	public MyFrame() {
 		
+		Course C1=new Course("Java");
+		Course C2=new Course("Math");
+		Course C3=new Course("Data Bases");
+		
+		courses.add(C1);
+		courses.add(C2);
+		courses.add(C3);
+		
+		
 		panel=new JPanel();
 		
-		inputField=new JTextField("Enter your name");
-		outputField=new JTextField(20);
-		button=new JButton("Greeting");
-		button2=new JButton("Greeting 2");
+		studentNameField=new JTextField("Student Name");
+		courseNameField=new JTextField("Course Title");
+		button=new JButton("Create Student");
+		button2=new JButton("Print Students");
 		
-		panel.add(inputField);
+		panel.add(studentNameField);
 		panel.add(button);
+		panel.add(courseNameField);
 		panel.add(button2);
-		panel.add(outputField);
 		
 		this.setContentPane(panel);
 		//βήμα 3 - δημιουργία αντικειμένου ακροατή 
@@ -46,14 +63,34 @@ public class MyFrame extends JFrame {
 		
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==button) {
+			//βήμα 2 - Συγγραφή κώδικα για τη δημιουργία φοιτητών
+				
+				String studentName=studentNameField.getText();
+				
+				Student newStudent=new Student(studentName);
+				
+				String courseName=courseNameField.getText();
+				
+				Course selectedCourse=null;
+				for(Course course:courses) {
+					
+					if(course.getCname().equals(courseName));
+					selectedCourse=course;
+					
+				}
+				
+				newStudent.setCourse(selectedCourse);
+				students.add(newStudent);
 				
 			
-			//βήμα 2 - Συγγραφή κώδικα
-			String name=inputField.getText();
-			outputField.setText("Hello my friend: "+name);
 			}
 			else 
-				outputField.setText("What a funny name");
+				for(Student student:students) {
+					student.printInfo();
+				}
+					
+			
+				
 			
 		}
 		
